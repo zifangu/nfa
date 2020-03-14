@@ -18,23 +18,25 @@ def open_file(filename):
 
 
 def fill_in_start_final(nfa):
-    start_state = ""
+    start_state = []
     final_states = []
     dictionary = {}
     counter = 0
     for line in nfa:
         line = line.strip()
         if counter == 2:
-            start_state = line
+            start_state.append(line)
             # print(start_state)
         elif counter == 3:
             final_states = line.split(",")
         counter += 1
+    # print("Start state:", start_state)
 
     return start_state, final_states
 
 
 def rules(nfa):
+    # return as list of transition rules
     transition_rules = []
     counter = 0
     for line in nfa:
@@ -45,16 +47,22 @@ def rules(nfa):
     return transition_rules
 
 
-def process_list_check_empty(start_state, rules):
+def process_list_check_empty(start_state_list, rules):
     # returns the new list need to be processed after checking empty string transition
-    new_list = [start_state]
-    for i in rules:
-        if (i[0] == start_state) and (i[1] == '@'):
-            new_list.append(i[2])
+    new_list = start_state_list
+    for ele in start_state_list:
+        for i in rules:
+            if (i[0] == ele) and (i[1] == '@'):
+                # print(i[0], i[1])
+                new_list.append(i[2])
+                # print("new list:", new_list)
+    # remove duplicates in the list
+    new_list = list(dict.fromkeys(new_list))
     return new_list
 
 
 def dictionary_ivan(start, path, trans_rules):
+    # custom dictionary look up because the duplicates in keys and values
     end_state = []
     for i in trans_rules:
         if (i[0] == start) and (i[1] == path):
@@ -62,14 +70,51 @@ def dictionary_ivan(start, path, trans_rules):
     return end_state
 
 
+def get_next_pro_list(pro_list, path, trans_rules):
+    # given a element and initial processing list, returns the next list to be processed
+    new_pro_list = []
+    for i in pro_list:
+        temp = dictionary_ivan(i, path, trans_rules)
+        for j in temp:
+            new_pro_list.append(j)
+    return new_pro_list
+
+
+def get_final_state_list(path_list, trans_rules, initial_state):
+    # given the initial state, returns the list of final states
+    temp_state = initial_state
+    temp_list = []
+    # traverse each path
+    for i in path_list:
+        # check if empty strings are involved. If so, add the states after the empty string to the processing list
+        temp_list = process_list_check_empty(temp_state, trans_rules)
+
+        # find next processing state with the given path element
+        temp_list = get_next_pro_list(temp_list, i, trans_rules)
+        temp_state = temp_list
+    return temp_list
+
+
+def write_result(file, result_list, final_states):
+    counter = 0
+    for i in result_list:
+        if i in final_states:
+            counter += 1
+    if counter >= 1:
+        file.write("accept\n")
+    else:
+        file.write("reject\n")
+
 
 def main():
-    # opens the dfa.txt file and creates dictionary connecting the tuples and key
+    # opens the nfa.txt file
     nfa = open_file("nfa.txt")
 
+    # set initial and final states
     start_state, final_states = fill_in_start_final(nfa)
+
+    # set the transition rule
     transition_rules = rules(nfa)
-    # print(process_list_check_empty('s1', transition_rules))
 
     # read in the transition paths
     trans_path = open_file("input.txt")
@@ -78,18 +123,17 @@ def main():
         line = line.strip()
         path.append(line)
 
-    pro_list = process_list_check_empty(start_state, transition_rules)
+    # iterate through paths and find the state the given string is ending
+    output = open("output.txt", "w+")
+    for i in path:
+        result_list = get_final_state_list(i, transition_rules, start_state)
+        write_result(output, result_list, final_states)
 
-
-
-
-
-
-    print("start:", start_state)
-    print("final:", final_states)
-    print("rule:", transition_rules)
-
+    # print("star:", start_state)
+    # print("final:", final_states)
+    # print("rule:", transition_rules)
 
 
 if __name__ == '__main__':
     main()
+
