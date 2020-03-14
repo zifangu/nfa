@@ -20,7 +20,6 @@ def open_file(filename):
 def fill_in_start_final(nfa):
     start_state = []
     final_states = []
-    dictionary = {}
     counter = 0
     for line in nfa:
         line = line.strip()
@@ -30,7 +29,6 @@ def fill_in_start_final(nfa):
         elif counter == 3:
             final_states = line.split(",")
         counter += 1
-    # print("Start state:", start_state)
 
     return start_state, final_states
 
