@@ -75,7 +75,7 @@ def get_next_pro_list(pro_list, path, trans_rules):
     for i in pro_list:
         temp = dictionary_ivan(i, path, trans_rules)
 
-        # if empty transition the original state also needs to be included in the processing list
+        # if empty transition, the original state also needs to be included in the next processing list
         if path == "@":
             temp.append(i)
         for j in temp:
@@ -90,13 +90,13 @@ def get_final_state_list(path_list, trans_rules, initial_state):
     # traverse each path
     for i in path_list:
         # check if empty strings are involved. If so, add the states after the empty string to the processing list
-        print("temp list before:", temp_list)
+        # print("temp list before:", temp_list)
         temp_list = process_list_check_empty(temp_state, trans_rules)
-        print("temp list after:", temp_list)
+        # print("temp list after:", temp_list)
 
         # find next processing state with the given path element
         temp_list = get_next_pro_list(temp_list, i, trans_rules)
-        print("next process list:", temp_list, "\n")
+        # print("next process list:", temp_list, "\n")
 
         # the next processing state may also contain empty transitions. Check those
         temp_list = process_list_check_empty(temp_list, trans_rules)
@@ -131,13 +131,13 @@ def main():
     for line in trans_path:
         line = line.strip()
         path.append(line)
-    print("path:", path)
+    # print("path:", path)
 
     # iterate through paths and find the state the given string is ending
     output = open("output.txt", "w+")
     for i in path:
         result_list = get_final_state_list(i, transition_rules, start_state)
-        print(result_list)
+        # print(result_list)
         write_result(output, result_list, final_states)
 
     # print("star:", start_state)
