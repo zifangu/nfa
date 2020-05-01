@@ -1,5 +1,8 @@
 # nfa
 
+nfa.txt and input.txt are grouped together.
+
+
 The structure of nfa.txt will be as follows:
 
  Line 1: the states of the NFA (separated by commas, if there is more than one state)
