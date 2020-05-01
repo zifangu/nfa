@@ -1,6 +1,6 @@
 # nfa
 
-nfa.py will read in a text file called nfa.txt and construct a NFA. Then it reads in input.txt to determine whether each input strings can be accepted or not by the NFA. The result is reflected in output.txt as each line contains the result "acctpt" or "reject" for every line in input.txt.
+nfa.py will read in a text file called nfa.txt and construct a NFA. Then it reads in input.txt to determine whether each input strings can be accepted or not by the NFA. The result is reflected in output.txt as each line contains the result "accetpt" or "reject" for every line in input.txt.
 
 nfa.txt and input.txt files are grouped together.
 
