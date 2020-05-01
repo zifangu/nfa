@@ -1,7 +1,13 @@
 # nfa
 
-nfa.txt and input.txt are grouped together.
+nfa.py will read in a text file called nfa.txt and construct a NFA. Then it reads in input.txt to determine whether each input strings can be accepted or not by the NFA. The result is reflected in output.txt as each line contains the result "acctpt" or "reject" for every line in input.txt.
 
+nfa.txt and input.txt files are grouped together.
+
+input.txt contains strings on each line that will run on the NFA.
+
+nfa.txt: an NFA schema recognizing when users are using commenting functions in programming languages (similar to C++ multi-line comment). 
+nfa_2.txt: example provided by the professor
 
 The structure of nfa.txt will be as follows:
 
@@ -17,6 +23,3 @@ The structure of nfa.txt will be as follows:
 In addition to the given alphabet, all NFAs may also contain empty-string transitions (the character "@" is used to represent an empty string).
 
 
-input.txt contains strings on each line that will run on the NFA.
-
-nfa.py will read in a text file called nfa.txt and construct a NFA. Then it reads in input.txt to determine whether each input strings can be accepted or not by the NFA. The result is reflected in output.txt as each line contains the result "acctpt" or "reject" for every line in input.txt.
