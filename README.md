@@ -6,8 +6,11 @@ nfa.txt and input.txt files are grouped together.
 
 input.txt contains strings on each line that will run on the NFA.
 
+
 nfa.txt: an NFA schema recognizing when users are using commenting functions in programming languages (similar to C++ multi-line comment). 
-nfa_2.txt: example provided by the professor
+nfa_2.txt: example provided by the professor.
+
+Files "nfa.txt" and "nfa_2.txt" are different test files for nfa.py. Both test cases produced consisent answers identical to the results from manually contructed DFAs.
 
 The structure of nfa.txt will be as follows:
 
