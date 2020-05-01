@@ -1,5 +1,14 @@
 """
-1. read in dfa.txt
+nfa.txt structure:
+Line 1: the states of the NFA (separated by commas, if there is more than one state)
+ Line 2: the alphabet of the NFA (separated by commas, if there is more than one symbol)
+ Line 3: the starting state of the NFA
+ Line 4: the final/accept states of the NFA (separated by commas, if there is more than one accept state)
+ Line 5 and onward: the transition rules, where each rule takes the form a,b,c (where being in state a and reading symbol b transitions to new state c)
+In addition to the given alphabet, all NFAs may also contain empty-string transitions (we will use @ to represent an empty string).
+
+Algorithm:
+1. read in nfa.txt
 2. put states, alphabets, start states, final states into separate lists
 3. rules: a list of list of transition rules:[[start_state, elements, reached_state], ...]
 4. read in input.txt, start collecting paths
